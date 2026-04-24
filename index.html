@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5º Encontro de Formadores - Fortalecendo Saberes 2026</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&display=swap');
+        
+        body { 
+            font-family: 'Inter', sans-serif; 
+            scroll-behavior: smooth; 
+            background-color: #f8fafc;
+        }
+
+        /* Identidade Visual */
+        :root {
+            --brand-yellow: #ffcb29;
+            --brand-teal: #58bbb6;
+            --brand-purple: #80509a;
+            --brand-pink: #ee549a;
+        }
+
+        .bg-brand-yellow { background-color: var(--brand-yellow); }
+        .text-brand-yellow { color: var(--brand-yellow); }
+        .bg-brand-teal { background-color: var(--brand-teal); }
+        .text-brand-teal { color: var(--brand-teal); }
+        .bg-brand-purple { background-color: var(--brand-purple); }
+        .text-brand-purple { color: var(--brand-purple); }
+        .bg-brand-pink { background-color: var(--brand-pink); }
+        .text-brand-pink { color: var(--brand-pink); }
+
+        .map-container iframe { width: 100%; height: 100%; min-height: 400px; border: 0; }
+        
+        .timeline-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: white;
+            border: 3px solid var(--brand-teal);
+            position: absolute;
+            left: -7px;
+            top: 4px;
+            z-index: 10;
+        }
+
+        .countdown-box {
+            background: rgba(0, 0, 0, 0.15);
+            border-radius: 1rem;
+            padding: 1rem;
+            min-width: 80px;
+        }
+
+        .section-gradient-purple {
+            background: linear-gradient(135deg, #80509a 0%, #6a3d82 100%);
+        }
+
+        .hero-badge {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Navegação -->
+    <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-20 items-center">
+                <div class="flex items-center gap-3">
+                    <div class="bg-brand-teal p-2 rounded-xl">
+                        <i data-lucide="graduation-cap" class="text-white w-6 h-6"></i>
+                    </div>
+                    <span class="font-black text-brand-purple text-xl tracking-tighter uppercase hidden sm:block">Fortalecendo Saberes</span>
+                </div>
+                <div class="hidden md:flex space-x-6">
+                    <a href="#inicio" class="text-gray-500 font-semibold hover:text-brand-purple transition-colors">Início</a>
+                    <a href="#guia" class="text-gray-500 font-semibold hover:text-brand-purple transition-colors">Guia</a>
+                    <a href="#local" class="text-gray-500 font-semibold hover:text-brand-purple transition-colors">Local</a>
+                    <a href="#cronograma" class="text-gray-500 font-semibold hover:text-brand-purple transition-colors">Cronograma</a>
+                    <a href="#logistica" class="text-gray-500 font-semibold hover:text-brand-purple transition-colors">Logística</a>
+                    <a href="#fotos" class="text-gray-500 font-semibold hover:text-brand-purple transition-colors">Fotos</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Cabeçalho (Header) -->
+    <header id="inicio" class="relative section-gradient-purple text-white py-20 px-4 overflow-hidden text-center">
+        <div class="absolute top-0 left-0 w-64 h-64 bg-brand-pink opacity-20 blur-3xl -ml-32 -mt-32"></div>
+        <div class="absolute bottom-0 right-0 w-96 h-96 bg-brand-teal opacity-20 blur-3xl -mr-48 -mb-48"></div>
+        
+        <div class="max-w-5xl mx-auto relative z-10">
+            <div class="flex flex-wrap justify-center gap-3 mb-8">
+                <div class="hero-badge px-6 py-2 rounded-full flex items-center gap-2">
+                    <i data-lucide="calendar" class="w-4 h-4 text-brand-yellow"></i>
+                    <span class="text-sm font-bold uppercase tracking-wider text-white">12 a 14 de maio de 2026</span>
+                </div>
+                <div class="hero-badge px-6 py-2 rounded-full flex items-center gap-2">
+                    <i data-lucide="map-pin" class="w-4 h-4 text-brand-yellow"></i>
+                    <span class="text-sm font-bold uppercase tracking-wider text-white">Foz do Iguaçu - PR</span>
+                </div>
+            </div>
+
+            <p class="uppercase tracking-[0.2em] text-brand-yellow font-black mb-4 text-xs md:text-sm">Secretaria da Educação do Paraná</p>
+            <h1 class="text-4xl md:text-7xl font-black mb-4 leading-[1.1] tracking-tight text-white">5º Encontro de Formadores</h1>
+            <p class="text-xl md:text-3xl font-medium mb-12 italic opacity-90 text-white">Fortalecendo Saberes</p>
+            
+            <!-- Contagem Regressiva -->
+            <div class="flex justify-center gap-3 md:gap-6 mb-12">
+                <div class="countdown-box">
+                    <span id="days" class="block text-3xl md:text-5xl font-black text-brand-yellow">00</span>
+                    <span class="text-[10px] uppercase font-bold tracking-widest opacity-60 text-white">Dias</span>
+                </div>
+                <div class="countdown-box">
+                    <span id="hours" class="block text-3xl md:text-5xl font-black text-white">00</span>
+                    <span class="text-[10px] uppercase font-bold tracking-widest opacity-60 text-white">Horas</span>
+                </div>
+                <div class="countdown-box">
+                    <span id="minutes" class="block text-3xl md:text-5xl font-black text-white">00</span>
+                    <span class="text-[10px] uppercase font-bold tracking-widest opacity-60 text-white">Min</span>
+                </div>
+                <div class="countdown-box">
+                    <span id="seconds" class="block text-3xl md:text-5xl font-black text-white">00</span>
+                    <span class="text-[10px] uppercase font-bold tracking-widest opacity-60 text-white">Seg</span>
+                </div>
+            </div>
+
+            <div class="flex flex-wrap justify-center gap-4">
+                <a href="https://docs.google.com/document/d/1DDhM_KJNn4Hd7UAHPvcKjJVqUOyaBjtmrhwqG0FCDqw/edit?usp=sharing" target="_blank" class="inline-flex items-center gap-3 bg-brand-teal text-white font-black px-8 py-5 rounded-2xl shadow-2xl hover:scale-105 transition-all transform uppercase tracking-tighter">
+                    <i data-lucide="file-text" class="w-6 h-6"></i> Guia do Participante
+                </a>
+                <a href="https://photos.app.goo.gl/ta1hVNJDf4bQgCRu6" target="_blank" class="inline-flex items-center gap-3 bg-brand-yellow text-brand-purple font-black px-8 py-5 rounded-2xl shadow-2xl hover:scale-105 transition-all transform uppercase tracking-tighter">
+                    <i data-lucide="camera" class="w-6 h-6"></i> Álbum de Fotos
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-16 space-y-24">
+        
+        <!-- Guia do Participante -->
+        <section id="guia" class="scroll-mt-32">
+            <div class="bg-white p-10 md:p-16 rounded-[3rem] shadow-xl border border-gray-100 flex flex-col md:flex-row items-center gap-10">
+                <div class="bg-brand-teal/10 p-8 rounded-[2.5rem]">
+                    <i data-lucide="book-open" class="w-20 h-20 text-brand-teal"></i>
+                </div>
+                <div class="flex-1 text-center md:text-left space-y-4">
+                    <h2 class="text-4xl font-black text-gray-900 tracking-tight">Guia do Participante</h2>
+                    <p class="text-lg text-gray-600 font-medium leading-relaxed">
+                        Preparamos um guia completo com todas as orientações, horários, contatos e informações essenciais para que você aproveite ao máximo o nosso 5º Encontro.
+                    </p>
+                    <a href="https://docs.google.com/document/d/1DDhM_KJNn4Hd7UAHPvcKjJVqUOyaBjtmrhwqG0FCDqw/edit?usp=sharing" target="_blank" class="inline-flex items-center gap-2 text-brand-teal font-black text-lg hover:underline transition-all">
+                        Clique aqui para ler o documento completo <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Público e Parcerias -->
+        <section id="publico" class="grid md:grid-cols-2 gap-12 items-start scroll-mt-32">
+            <div class="space-y-8">
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-purple-50 rounded-full text-brand-purple">
+                    <div class="w-2 h-2 rounded-full bg-brand-purple"></div>
+                    <span class="text-xs font-bold uppercase tracking-widest">Participantes</span>
+                </div>
+                <h2 class="text-4xl font-black text-gray-900 leading-tight">Público</h2>
+                <div class="bg-white p-8 rounded-[2rem] shadow-xl border border-gray-100">
+                    <ul class="space-y-6">
+                        <li class="flex items-start gap-4">
+                            <div class="bg-teal-50 p-2 rounded-lg text-brand-teal"><i data-lucide="user-check" class="w-5 h-5"></i></div>
+                            <span class="text-gray-700 font-semibold leading-tight pt-1">Formadores, Tutores, Coordenadores NRE</span>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <div class="bg-teal-50 p-2 rounded-lg text-brand-teal"><i data-lucide="gem" class="w-5 h-5"></i></div>
+                            <span class="text-gray-700 font-semibold leading-tight pt-1 text-brand-teal">Professores Diamante</span>
+                        </li>
+                        <li class="flex items-start gap-4">
+                            <div class="bg-teal-50 p-2 rounded-lg text-brand-teal"><i data-lucide="shield-check" class="w-5 h-5"></i></div>
+                            <span class="text-gray-700 font-semibold leading-tight pt-1">Equipe SEED</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="space-y-8">
+                <div class="inline-flex items-center gap-2 px-4 py-2 bg-pink-50 rounded-full text-brand-pink">
+                    <div class="w-2 h-2 rounded-full bg-brand-pink"></div>
+                    <span class="text-xs font-bold uppercase tracking-widest">Colaboração</span>
+                </div>
+                <h2 class="text-4xl font-black text-gray-900 leading-tight">Parcerias</h2>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-50 flex items-center justify-center text-center">
+                        <span class="font-bold text-brand-teal">Instituto Canoa</span>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-50 flex items-center justify-center text-center">
+                        <span class="font-bold text-brand-pink">Fundação Itaú Social</span>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-50 flex items-center justify-center text-center">
+                        <span class="font-bold text-brand-purple">Safernet Brasil</span>
+                    </div>
+                    <div class="bg-white p-6 rounded-2xl shadow-md border border-gray-50 flex items-center justify-center text-center">
+                        <span class="font-bold text-yellow-600">Start by Alura</span>
+                    </div>
+                </div>
+                <div class="bg-brand-pink text-white p-6 rounded-2xl shadow-lg">
+                    <h4 class="font-bold mb-2 flex items-center gap-2"><i data-lucide="target"></i> Metodologia</h4>
+                    <p class="text-sm opacity-95 leading-relaxed italic font-medium">O evento utiliza a metodologia de Gamificação para estimular o engajamento e a construção coletiva de soluções educacionais.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Local -->
+        <section id="local" class="scroll-mt-32 space-y-12">
+            <div class="text-center space-y-4">
+                <h2 class="text-5xl font-black text-gray-900 tracking-tight">Local</h2>
+                <div class="h-2 w-24 bg-brand-pink mx-auto rounded-full"></div>
+            </div>
+
+            <div class="bg-white rounded-[3rem] shadow-2xl overflow-hidden border border-gray-100 grid md:grid-cols-2">
+                <div class="p-12 flex flex-col justify-center bg-brand-purple text-white relative">
+                    <h3 class="text-3xl font-black mb-8 flex items-center gap-3 text-brand-yellow">
+                        <i data-lucide="map-pinned"></i> LOCALIZAÇÃO
+                    </h3>
+                    <div class="space-y-6 text-lg relative z-10">
+                        <p class="font-black text-2xl uppercase tracking-tighter">Rafain Palace Hotel & Convention</p>
+                        <p class="opacity-80">Av. Olímpio Rafagnin, 2357 - Parque Imperatriz - Foz do Iguaçu - PR</p>
+                        <p class="font-bold text-brand-yellow flex items-center gap-2"><i data-lucide="phone-call" class="w-5 h-5"></i> (45) 3520-9494</p>
+                    </div>
+                    <div class="mt-12">
+                        <a href="https://www.google.com/maps/dir//Rafain+Palace+Hotel+%26+Convention" target="_blank" class="inline-flex items-center gap-3 bg-brand-pink text-white px-10 py-5 rounded-2xl font-black hover:scale-105 transition-all">
+                            <i data-lucide="navigation"></i> ABRIR NO GOOGLE MAPS
+                        </a>
+                    </div>
+                </div>
+                <div class="map-container min-h-[500px]">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3600.957582236528!2d-54.5447192!3d-25.5064619!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94f691bc2d8a071d%3A0x89b03947e923838!2sRafain%20Palace%20Hotel%20%26%20Convention!5e0!3m2!1spt-BR!2sbr!4v1700000000000" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- Ensalamento -->
+        <section id="ensalamento" class="scroll-mt-32 space-y-10">
+            <div class="text-center space-y-3">
+                <h2 class="text-3xl font-black text-brand-purple uppercase">Ensalamento</h2>
+                <p class="text-gray-500 font-medium italic">Organização por Áreas de Conhecimento (Afins)</p>
+            </div>
+            <div class="max-w-3xl mx-auto bg-teal-50 border-2 border-dashed border-brand-teal p-12 rounded-[2.5rem] text-center space-y-6">
+                <div class="bg-brand-teal text-white w-20 h-20 rounded-2xl flex items-center justify-center mx-auto shadow-xl"><i data-lucide="door-open" class="w-10 h-10"></i></div>
+                <h3 class="text-2xl font-black text-brand-teal mb-2 uppercase">Divisão das Salas</h3>
+                <p class="text-gray-600 font-medium">As salas serão divididas de acordo com as áreas de conhecimento afins. Em breve, a lista completa estará disponível.</p>
+            </div>
+        </section>
+
+        <!-- Cronograma -->
+        <section id="cronograma" class="space-y-12 scroll-mt-24">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-6">
+                <h2 class="text-4xl font-black text-gray-900 tracking-tight">Cronograma do Evento</h2>
+                <div class="bg-brand-yellow px-6 py-2 rounded-2xl shadow-sm border border-yellow-400 flex items-center gap-3">
+                    <i data-lucide="construction" class="text-brand-purple w-5 h-5"></i>
+                    <span class="font-black text-brand-purple text-xs uppercase italic tracking-tighter text-purple-900">Proposta em Construção</span>
+                </div>
+            </div>
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Dia 1 -->
+                <div class="bg-white rounded-[2.5rem] shadow-lg border-t-8 border-brand-teal p-8">
+                    <h3 class="text-2xl font-black text-brand-teal mb-6">12/05</h3>
+                    <div class="space-y-4">
+                        <div class="flex gap-3"><span class="font-bold text-brand-teal">15:50 – 17:50</span><p class="text-gray-700">Acolhida e Credenciamento</p></div>
+                        <div class="flex gap-3"><span class="font-bold text-brand-teal">18:00 – 20:00</span><p class="text-gray-700">Solenidade de Abertura</p></div>
+                        <div class="flex gap-3"><span class="font-bold text-brand-teal">20:00 – 22:00</span><p class="text-gray-700 italic">Jantar</p></div>
+                    </div>
+                </div>
+                <!-- Dia 2 -->
+                <div class="bg-white rounded-[2.5rem] shadow-xl border-t-8 border-brand-purple p-8 scale-105 z-10">
+                    <h3 class="text-2xl font-black text-brand-purple mb-6">13/05</h3>
+                    <div class="space-y-4 text-sm">
+                        <div class="flex gap-3"><span class="font-bold text-brand-purple">08:00 – 09:00</span><p class="text-gray-700 font-bold">Momento IntegrAÇÃO</p></div>
+                        <div class="flex gap-3"><span class="font-bold text-brand-purple">09:00 – 12:00</span><p class="text-gray-700 font-black">Hackathon</p></div>
+                        <div class="flex gap-3"><span class="font-bold text-brand-pink">12:00 – 13:30</span><p class="text-gray-700 italic font-bold">Almoço</p></div>
+                        <div class="flex gap-3"><span class="font-bold text-brand-purple">13:30 – 15:30</span><p class="text-gray-700 font-bold">Oficina 1</p></div>
+                        <div class="flex gap-3"><span class="font-bold text-brand-pink">15:30 – 15:50</span><p class="text-gray-700 italic font-bold">Coffee Break</p></div>
+                        <div class="flex gap-3"><span class="font-bold text-brand-purple">15:50 – 17:50</span><p class="text-gray-700 font-bold">Oficina 2</p></div>
+                    </div>
+                </div>
+                <!-- Dia 3 -->
+                <div class="bg-white rounded-[2.5rem] shadow-lg border-t-8 border-brand-pink p-8">
+                    <h3 class="text-2xl font-black text-brand-pink mb-6">14/05</h3>
+                    <div class="space-y-4">
+                        <div class="flex gap-3"><span class="font-bold text-brand-pink">08:30 – 11:00</span><p class="text-gray-700">Boas práticas do Formador</p></div>
+                        <div class="flex gap-3"><span class="font-bold text-brand-pink">11:00 – 12:00</span><p class="text-gray-700">Palestra e encerramento</p></div>
+                        <div class="flex gap-3"><span class="font-bold text-brand-pink">12:00 – 13:30</span><p class="text-gray-700 italic font-bold">Almoço</p></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Logística -->
+        <section id="logistica" class="grid md:grid-cols-2 gap-10 scroll-mt-32">
+            <div class="bg-white p-12 rounded-[3rem] shadow-xl border-t-8 border-brand-teal text-center hover:-translate-y-1 transition-all">
+                <div class="bg-teal-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-8"><i data-lucide="bus" class="w-10 h-10 text-brand-teal"></i></div>
+                <h4 class="text-2xl font-black mb-4 text-brand-teal uppercase tracking-tighter">Transporte</h4>
+                <p class="text-gray-600 font-medium italic">Consulte o seu Ponto Focal Regional para horários e locais de embarque.</p>
+            </div>
+            <div class="bg-white p-12 rounded-[3rem] shadow-xl border-t-8 border-brand-pink text-center hover:-translate-y-1 transition-all">
+                <div class="bg-pink-50 w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-8"><i data-lucide="award" class="w-10 h-10 text-brand-pink"></i></div>
+                <h4 class="text-2xl font-black mb-4 text-brand-pink uppercase tracking-tighter">Certificação</h4>
+                <p class="text-gray-600 font-medium italic">A certificação será realizada via sistema SICAPE (participação integral obrigatória).</p>
+            </div>
+        </section>
+
+        <!-- Fotos -->
+        <section id="fotos" class="scroll-mt-32">
+            <div class="bg-brand-teal p-12 md:p-20 rounded-[4rem] shadow-2xl text-white text-center space-y-10 relative overflow-hidden">
+                <div class="absolute inset-0 flex items-center justify-center opacity-5"><i data-lucide="aperture" class="w-[500px] h-[500px]"></i></div>
+                <div class="relative z-10 space-y-6">
+                    <div class="bg-white/20 w-24 h-24 rounded-full flex items-center justify-center mx-auto mb-8 text-white"><i data-lucide="images" class="w-12 h-12"></i></div>
+                    <h2 class="text-5xl font-black uppercase tracking-tighter text-white">Álbum de Memórias</h2>
+                    <p class="text-xl opacity-90 max-w-2xl mx-auto font-medium italic text-white">Confira os registros oficiais do nosso encontro!</p>
+                    <div class="pt-8">
+                        <a href="https://photos.app.goo.gl/ta1hVNJDf4bQgCRu6" target="_blank" class="inline-block bg-brand-yellow text-brand-purple font-black text-2xl px-16 py-8 rounded-3xl shadow-2xl hover:scale-105 transition-all transform uppercase tracking-widest text-purple-900">ACESSAR ÁLBUM COMPLETO</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Rodapé -->
+    <footer class="bg-white py-20 border-t border-gray-100 text-center relative">
+        <div class="max-w-4xl mx-auto space-y-4 px-4">
+            <p class="text-2xl italic font-black text-brand-purple leading-tight">"Formadores em Ação, te ajudando a pensar fora da caixa."</p>
+            <div class="h-1 w-20 bg-brand-teal mx-auto rounded-full"></div>
+            <p class="font-black text-lg uppercase tracking-widest text-gray-400">Núcleo Formadores em Ação - SEED/PR</p>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+        const eventDate = new Date('May 12, 2026 15:50:00').getTime();
+        const countdown = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = eventDate - now;
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            document.getElementById("days").innerHTML = days.toString().padStart(2, '0');
+            document.getElementById("hours").innerHTML = hours.toString().padStart(2, '0');
+            document.getElementById("minutes").innerHTML = minutes.toString().padStart(2, '0');
+            document.getElementById("seconds").innerHTML = seconds.toString().padStart(2, '0');
+            if (distance < 0) {
+                clearInterval(countdown);
+                document.getElementById("days").innerHTML = "00";
+                document.getElementById("hours").innerHTML = "00";
+                document.getElementById("minutes").innerHTML = "00";
+                document.getElementById("seconds").innerHTML = "00";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
